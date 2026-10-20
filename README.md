@@ -1,43 +1,65 @@
-# Astro Starter Kit: Minimal
+# Personal Links - JHT.re
 
-```sh
-pnpm create astro@latest -- --template minimal
+A personal link-in-bio page and URL shortener, built with [Astro](https://astro.build) and hosted on Netlify on a custom domain.
+
+Every link lives in one file, `src/data/links.json`. An entry can show up on the link page, work as a short URL (`/<slug>`), or both. At build time the slugs become Netlify `_redirects` rules, so short links are handled at the CDN edge, with no server, database or serverless functions.
+
+## Adding or changing a link
+
+Edit `src/data/links.json`:
+
+```json
+{
+  "title": "GitHub",
+  "url": "https://github.com/joakimtveter/",
+  "slug": "gh",
+  "listed": true
+}
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+| Field    | Required | Meaning                                                  |
+| :------- | :------- | :------------------------------------------------------- |
+| `title`  | yes      | Text shown on the link page                              |
+| `url`    | yes      | Where the link goes. Must be an absolute `http(s)` URL   |
+| `slug`   | no       | Makes `/<slug>` redirect to `url`                        |
+| `listed` | yes      | `true` shows the link on the page, `false` hides it      |
 
-## 🚀 Project Structure
+So a link can be on the page only (leave out `slug`), a short URL only (`"listed": false`), or both.
 
-Inside of your Astro project, you'll see the following folders and files:
+The name and bio at the top of the page come from `profile` in the same file.
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+Then commit and push. Netlify rebuilds and deploys automatically.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+### Slug rules
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+- Lowercase letters, digits and hyphens only, with no hyphen at the start or end.
+- Each slug can only be used once.
+- Redirects are **302 (temporary)**, so you can point a slug somewhere new at any time without browsers holding on to the old target.
+- A real page at the same path takes priority over a redirect, so don't add a page that shares a name with an existing slug.
 
-Any static assets, like images, can be placed in the `public/` directory.
+If any of these rules is broken, the build fails with a list of the problems and Netlify keeps the last working deploy live.
 
-## 🧞 Commands
+## Commands
 
-All commands are run from the root of the project, from a terminal:
+Run from the project root:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+| Command        | Action                                                           |
+| :------------- | :--------------------------------------------------------------- |
+| `pnpm install` | Install dependencies                                             |
+| `pnpm dev`     | Start the dev server at `localhost:4321`                         |
+| `pnpm test`    | Run the tests                                                    |
+| `pnpm build`   | Run the tests, build the site to `dist/` and write `dist/_redirects` |
+| `pnpm preview` | Preview the built site locally                                   |
 
-## 👀 Want to learn more?
+Short links only work on Netlify. The local dev and preview servers ignore `_redirects`. To check the generated rules, run `pnpm build` and look at `dist/_redirects`.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## How it works
+
+- `src/pages/index.astro` renders the link page from `links.json`.
+- `scripts/redirects.mjs` validates the links and turns slugs into redirect rules.
+- `scripts/build-redirects.mjs` runs after `astro build` and writes `dist/_redirects`.
+- `scripts/redirects.test.mjs` tests the validation and checks the real `links.json`, using Node's built-in test runner.
+
+## Deploying
+
+Connect the GitHub repo to Netlify. It detects Astro and builds with `pnpm build`, publishing `dist/`. If you set a custom build command, it must be `pnpm build`, not `astro build`, or the redirects won't be generated.

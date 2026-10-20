@@ -1,0 +1,32 @@
+{
+  "profile": {
+    "name": "Joakim Tveter",
+    "bio": "Links and short URLs."
+  },
+  "links": [
+    {
+      "title": "Website",
+      "url": "https://joakimtveter.no/",
+      "slug": "www",
+      "listed": true
+    },
+    {
+      "title": "GitHub",
+      "url": "https://github.com/joakimtveter/",
+      "slug": "gh",
+      "listed": true
+    },
+    {
+      "title": "LinkedIn",
+      "url": "https://www.linkedin.com/in/joakimtveter",
+      "slug": "in",
+      "listed": true
+    },
+    {
+      "title": "Book a meeting",
+      "url": "https://example.com/meet",
+      "slug": "meet",
+      "listed": false
+    }
+  ]
+}

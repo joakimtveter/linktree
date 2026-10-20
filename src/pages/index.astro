@@ -1,16 +1,74 @@
 ---
+import Layout from '../layouts/Layout.astro';
+import data from '../data/links.json';
+
+const { profile } = data;
+const links = data.links.filter((link) => link.listed);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title={profile.name} description={profile.bio}>
+	<header>
+		<h1>{profile.name}</h1>
+		<p>{profile.bio}</p>
+	</header>
+
+	<ul>
+		{
+			links.map((link) => (
+				<li>
+					<a href={link.url}>{link.title}</a>
+				</li>
+			))
+		}
+	</ul>
+</Layout>
+
+<style>
+	header {
+		text-align: center;
+		margin-bottom: 2rem;
+	}
+
+	h1 {
+		margin: 0;
+		font-size: 1.75rem;
+	}
+
+	header p {
+		margin: 0.5rem 0 0;
+		color: var(--muted);
+	}
+
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		gap: 0.75rem;
+	}
+
+	a {
+		display: block;
+		padding: 0.9rem 1.25rem;
+		text-align: center;
+		font-weight: 500;
+		color: inherit;
+		text-decoration: none;
+		background: var(--card);
+		border: 1px solid var(--border);
+		border-radius: 0.75rem;
+		transition:
+			border-color 0.15s,
+			transform 0.15s;
+	}
+
+	a:hover {
+		border-color: var(--accent);
+		transform: translateY(-1px);
+	}
+
+	a:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 2px;
+	}
+</style>
