@@ -1,3 +1,4 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ccce4773-0d9d-4013-bce7-5b8c758d8c41/deploy-status)](https://app.netlify.com/projects/jht-re/deploys)
 # Personal Links - JHT.re
 
 A personal link-in-bio page and URL shortener, built with [Astro](https://astro.build) and hosted on Netlify on a custom domain.
