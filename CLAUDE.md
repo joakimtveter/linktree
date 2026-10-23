@@ -1,7 +1,5 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
 @AGENTS.md
 
 ## What this is
@@ -35,3 +33,10 @@ Things to keep in mind when changing this:
 - All redirects are 302 (temporary) on purpose, so a slug can later point somewhere else without browsers caching the old target.
 - `_redirects` is written straight into `dist/` after the build, never into `public/`, so nothing generated gets committed.
 - On Netlify, a real file or page at a path takes priority over a redirect rule. Adding a page whose path matches an existing slug silently breaks that short link.
+
+## Security
+
+- `public/_headers` sets a strict Content-Security-Policy (`default-src 'none'`, same-origin styles and images only). Adding JavaScript, an inline style or any third-party resource means updating the CSP too. `build.inlineStylesheets: 'never'` in `astro.config.mjs` exists so CSS stays in files that `style-src 'self'` allows.
+- `pnpm-workspace.yaml` holds the supply-chain settings: `minimumReleaseAge` (3 days) and `trustPolicy: no-downgrade`. Dependabot's `cooldown` in `.github/dependabot.yml` must stay at or above `minimumReleaseAge`.
+- pnpm is pinned through `packageManager` in `package.json` and recorded in the lockfile. Netlify and CI both use that version.
+- GitHub Actions in `.github/workflows/` are pinned to commit SHAs with a version comment. Keep that form when adding or changing one.

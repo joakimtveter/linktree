@@ -1,2 +1,2 @@
-minimumReleaseAgeExclude:
-  - astro@7.4.1
+minimumReleaseAge: 4320
+trustPolicy: no-downgrade
