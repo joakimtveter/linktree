@@ -40,3 +40,7 @@ Things to keep in mind when changing this:
 - `pnpm-workspace.yaml` holds the supply-chain settings: `minimumReleaseAge` (3 days) and `trustPolicy: no-downgrade`. Dependabot's `cooldown` in `.github/dependabot.yml` must stay at or above `minimumReleaseAge`.
 - pnpm is pinned through `packageManager` in `package.json` and recorded in the lockfile. Netlify and CI both use that version.
 - GitHub Actions in `.github/workflows/` are pinned to commit SHAs with a version comment. Keep that form when adding or changing one.
+
+## Skipped builds
+
+`netlify.toml` holds only an `ignore` rule (the build command and publish directory are set in the Netlify UI). It skips the Netlify build when a push changes only docs, `.github/` or `.vscode/`. CI's `paths-ignore` in `ci.yml` skips the same docs, but not `.github/`, so workflow and Dependabot changes are still tested. When adding a file that doesn't affect the site, add it to both lists.

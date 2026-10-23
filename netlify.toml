@@ -1,0 +1,8 @@
+# Build command and publish directory are set in the Netlify UI.
+
+[build]
+  # Skip the build when a push only changes files that don't affect the site.
+  # Netlify skips on exit code 0 and builds on anything else. The first test
+  # makes sure a manual redeploy of the same commit still builds.
+  # Keep this list in step with paths-ignore in .github/workflows/ci.yml.
+  ignore = "[ \"$CACHED_COMMIT_REF\" != \"$COMMIT_REF\" ] && git diff --quiet \"$CACHED_COMMIT_REF\" \"$COMMIT_REF\" -- . ':!README.md' ':!SECURITY.md' ':!CLAUDE.md' ':!AGENTS.md' ':!.github' ':!.vscode'"

@@ -72,4 +72,4 @@ Short links only work on Netlify. The local dev and preview servers ignore `_red
 
 ## Deploying
 
-Connect the GitHub repo to Netlify. It detects Astro and builds with `pnpm build`, publishing `dist/`. If you set a custom build command, it must be `pnpm build`, not `astro build`, or the redirects won't be generated.
+This automatically deploys to Netlify when code changes are pushed to `main` branch.

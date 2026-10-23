@@ -1,9 +1,18 @@
 name: CI
 
+# Docs-only changes don't affect the build. Keep this list in step with the
+# ignore rule in netlify.toml (which also skips .github, but CI must not).
 on:
   push:
     branches: [main]
+    paths-ignore: &docs
+      - README.md
+      - SECURITY.md
+      - CLAUDE.md
+      - AGENTS.md
+      - .vscode/**
   pull_request:
+    paths-ignore: *docs
 
 permissions: {}
 
