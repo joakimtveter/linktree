@@ -22,6 +22,8 @@ Use pnpm.
 - `listed: true` shows it on the link page (`src/pages/index.astro`, which imports the JSON directly).
 - `slug` makes `/<slug>` redirect to its `url`.
 
+An optional `newTab: true` makes the link on the page open in a new tab. It has no effect on the short link.
+
 The redirect pipeline lives in `scripts/`:
 
 - `redirects.mjs`: `buildRedirects(links)` is a pure function that returns `{ rules, errors }`. It validates slugs (lowercase `a-z`, `0-9`, `-`, with no hyphen at either end), rejects duplicate slugs, and requires absolute `http(s)` URLs.

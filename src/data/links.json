@@ -1,14 +1,15 @@
 {
   "profile": {
-    "name": "Joakim Tveter",
-    "bio": "Links and short URLs."
+    "name": "Hi, my name is Joakim Tveter",
+    "bio": "I am a developer from Norway. These are my personal links. "
   },
   "links": [
     {
-      "title": "Website",
+      "title": "My website",
       "url": "https://joakimtveter.no/",
       "slug": "www",
-      "listed": true
+      "listed": true,
+      "newTab": true
     },
     {
       "title": "GitHub",
@@ -21,12 +22,6 @@
       "url": "https://www.linkedin.com/in/joakimtveter",
       "slug": "in",
       "listed": true
-    },
-    {
-      "title": "Book a meeting",
-      "url": "https://example.com/meet",
-      "slug": "meet",
-      "listed": false
     }
   ]
 }

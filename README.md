@@ -26,6 +26,7 @@ Edit `src/data/links.json`:
 | `url`    | yes      | Where the link goes. Must be an absolute `http(s)` URL   |
 | `slug`   | no       | Makes `/<slug>` redirect to `url`                        |
 | `listed` | yes      | `true` shows the link on the page, `false` hides it      |
+| `newTab` | no       | `true` opens the link in a new tab                       |
 
 So a link can be on the page only (leave out `slug`), a short URL only (`"listed": false`), or both.
 
